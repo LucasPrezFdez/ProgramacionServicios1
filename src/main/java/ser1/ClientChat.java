@@ -1,9 +1,11 @@
 package ser1;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class ClientChat {
     public static void main(String[] args) {
@@ -12,6 +14,7 @@ public class ClientChat {
 
 
         int puerto = 6000; // puerto remoto
+        Scanner sc = new Scanner(System.in);
         // El server esta en ip 10.101.21.152
         // ABRIR SOCKET
         try {
@@ -25,11 +28,20 @@ public class ClientChat {
             System.out.println("Host remoto: " + cliente.getInetAddress().getHostName());
             System.out.println("IP Host remoto: " + cliente.getInetAddress().toString());
 
-            // VOY A ESCRIBIR ALGO
-            DataOutputStream out = new DataOutputStream(cliente.getOutputStream());
-            out.writeUTF("Hola me llamo cancer");
+            while(true) {
+                // VOY A ESCRIBIR ALGO
+                DataOutputStream out = new DataOutputStream(cliente.getOutputStream());
+                System.out.println("Escribe algo chatin");
+                String envio = sc.nextLine();
+                out.writeUTF(envio);
 
-            cliente.close(); // cierra el socket
+                //respuesta
+                DataInputStream in = new DataInputStream(cliente.getInputStream());
+                String msg = in.readUTF();
+                System.out.println("Mensaje recibido: "+ msg);
+                System.out.println("=================================");
+            }
+            //cliente.close(); // cierra el socket
         } catch (IOException e) {
             System.err.println("Error de conexion: " + e.getMessage());
         }
