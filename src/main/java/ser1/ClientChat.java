@@ -27,18 +27,24 @@ public class ClientChat {
             System.out.println("Host remoto: " + cliente.getInetAddress().getHostName());
             System.out.println("IP Host remoto: " + cliente.getInetAddress().toString());
 
-            while(true) {
+            boolean sigue = true;
+            while (sigue) {
                 // VOY A ESCRIBIR ALGO
                 DataOutputStream out = new DataOutputStream(cliente.getOutputStream());
-                System.out.println("Escribe algo chatin");
+                System.out.println("Escribe algo chatin (exit) para salir");
                 String envio = sc.nextLine();
                 out.writeUTF(envio);
 
-                //respuesta
-                DataInputStream in = new DataInputStream(cliente.getInputStream());
-                String msg = in.readUTF();
-                System.out.println("Mensaje recibido: "+ msg);
-                System.out.println("=================================");
+                if (!envio.equals("exit")) {
+                    //respuesta
+                    DataInputStream in = new DataInputStream(cliente.getInputStream());
+                    String msg = in.readUTF();
+                    System.out.println("Mensaje recibido: " + msg);
+                    System.out.println("=================================");
+                } else {
+                    System.out.println("Abandonando conexion...");
+                    sigue = false;
+                }
             }
             //cliente.close(); // cierra el socket
         } catch (IOException e) {

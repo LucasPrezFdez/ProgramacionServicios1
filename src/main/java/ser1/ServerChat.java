@@ -25,16 +25,24 @@ public class ServerChat {
         DataInputStream in = new DataInputStream(cliente1.getInputStream());
         DataOutputStream out = new DataOutputStream(cliente1.getOutputStream());
 
+
+        boolean sigue = true;
         try {
-            while (true) {
+            while (sigue) {
                 // Recibir mensaje del cliente
                 String recibido = in.readUTF();
-                System.out.println("Cliente: " + recibido);
+                if (!recibido.equals("exit")) {
+                    System.out.println("Cliente: " + recibido);
 
-                // Enviar respuesta al cliente
-                System.out.print("Servidor: ");
-                String respuesta = sc.nextLine();
-                out.writeUTF(respuesta);
+
+                    // Enviar respuesta al cliente
+                    System.out.print("Servidor: ");
+                    String respuesta = sc.nextLine();
+                    out.writeUTF(respuesta);
+                } else {
+                    System.out.println("apagando servidor...");
+                    sigue = false;
+                }
             }
         } catch (IOException e) {
             System.out.println("Finalizando el programa...");
