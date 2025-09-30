@@ -12,7 +12,6 @@ public class ServerChat {
     public static void main(String[] args) throws IOException {
 
         int puerto = 6000; // Puerto
-        // yo soy 10.101.21.152
         Scanner sc = new Scanner(System.in);
 
         ServerSocket servidor = new ServerSocket(puerto);
@@ -20,21 +19,31 @@ public class ServerChat {
 
         // esperando a un cliente
         Socket cliente1 = servidor.accept();
-        // realizar acciones con cliente1
         System.out.println("Se ha conectado el cliente.");
+
+        // Crear streams para comunicarse con el cliente
+        DataInputStream in = new DataInputStream(cliente1.getInputStream());
+        DataOutputStream out = new DataOutputStream(cliente1.getOutputStream());
+
         try {
             while (true) {
-                // VOY A ESCRIBIR ALGO
-                DataInputStream in = new DataInputStream(servidor.getInputStream());
-                System.out.println("Escribe algo chatin");
-                String envio = in.readUTF();
-                // Preparar respuesta
+                // Recibir mensaje del cliente
+                String recibido = in.readUTF();
+                System.out.println("Cliente: " + recibido);
 
+                // Enviar respuesta al cliente
+                System.out.print("Servidor: ");
+                String respuesta = sc.nextLine();
+                out.writeUTF(respuesta);
             }
         } catch (IOException e) {
             System.out.println("Finalizando el programa...");
-
-            servidor.close(); // cierro socket servidor
+        } finally {
+            // Cerrar recursos
+            in.close();
+            out.close();
+            cliente1.close();
+            servidor.close();
         }
     }
 }
