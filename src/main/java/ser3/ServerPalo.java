@@ -28,6 +28,12 @@ public class ServerPalo {
 
                 if (!frase.equals("exit")) {
                     System.out.println("Recibido: " + frase);
+                    if (esPalindromo(frase)){
+                        System.out.println("La frase es palindroma");
+                        dataOutputStream.writeUTF("La frase es palindroma");
+                    } else dataOutputStream.writeUTF("La frase no es palindroma");
+                    System.out.println();
+                    System.out.println("Iniciando otro bucle");
                 } else sigue = false;
             }
         } catch (IOException e) {
@@ -36,7 +42,7 @@ public class ServerPalo {
 
     }
 
-    public boolean esPalindromo(String frase) {
+    public static boolean esPalindromo(String frase) {
 
         StringBuilder sb = new StringBuilder();
         sb.append(frase);
