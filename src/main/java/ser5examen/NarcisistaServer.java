@@ -29,17 +29,14 @@ public class NarcisistaServer {
 
                 String respuesta;
 
-                // Comando para apagar el servidor
                 if (mensaje.equalsIgnoreCase("exit")) {
                     System.out.println("Cerrando servidor...");
                     sigue = false;
-                } else if (!esTresCifras(mensaje)){
-                    System.out.println("El mensaje ha de ser de 3 cifras");
                 } else {
                     int numero = Integer.parseInt(mensaje);
                     boolean narcisista = esNarcisista(numero);
                     if (narcisista) {
-                        respuesta = numero + " es NARCISISTA (suma de cubos de sus cifras).";
+                        respuesta = numero + " es NARCISISTA.";
                     } else {
                         respuesta = numero + " NO es narcisista.";
                     }
@@ -53,10 +50,7 @@ public class NarcisistaServer {
         System.out.println("Servidor detenido.");
     }
 
-    private static boolean esTresCifras(String msg) {
-        if (msg == null) return false;
-        return msg.length()==3;
-    }
+
 
     private static boolean esNarcisista(int n) {
         int suma = 0;
