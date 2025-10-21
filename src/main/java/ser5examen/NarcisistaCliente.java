@@ -36,8 +36,8 @@ public class NarcisistaCliente {
                     DatagramPacket paqueteEnviar = new DatagramPacket(enviar, enviar.length, direccion, puerto);
                     socket.send(paqueteEnviar);
 
-                    byte[] buffer = new byte[1024];
-                    DatagramPacket paqueteRecibir = new DatagramPacket(buffer, buffer.length);
+                    byte[] paquete = new byte[1024];
+                    DatagramPacket paqueteRecibir = new DatagramPacket(paquete, paquete.length);
                     socket.receive(paqueteRecibir);
 
 
@@ -53,6 +53,10 @@ public class NarcisistaCliente {
     private static boolean esEntradaValida(String msg) {
         if (msg == null) return false;
         if (msg.equalsIgnoreCase("exit")) return true;
-        return msg.length()==3;
+        if (msg.length()!=3) return false;
+        for (int i = 0; i<msg.length(); i++) {
+            if (!Character.isDigit(msg.charAt(i))) return false;
+        }
+        return true;
     }
 }
