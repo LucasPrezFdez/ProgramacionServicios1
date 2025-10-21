@@ -26,6 +26,7 @@ public class NarcisistaCliente {
                 if (linea.equalsIgnoreCase("exit")) {
                     System.out.println("Desconectando cliente.");
                     sigue = false;
+                    continue;
                 }
                 if (!esEntradaValida(linea)) {
                     System.out.println("Introduzca exactamente 3 dígitos. (exit para salir) ");
@@ -46,8 +47,7 @@ public class NarcisistaCliente {
                 }
 
             }
-
-
+        socket.close();
     }
 
     private static boolean esEntradaValida(String msg) {
