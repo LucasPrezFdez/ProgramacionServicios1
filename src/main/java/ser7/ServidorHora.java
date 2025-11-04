@@ -21,21 +21,25 @@ public class ServidorHora {
         socket.joinGroup(grupo);
         String cadena = "";
 
+
         System.out.println();
         while (true) {
 
-            try {
-                Thread.sleep(15000);
-                cadena = obtenerHoraActualYFecha();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
-            // Usar la cadena con la fecha/hora como contenido del paquete
-            byte[] buf = cadena.getBytes();
-            DatagramPacket datagramPacket = new DatagramPacket(buf, buf.length, grupo, port);
-            socket.send(datagramPacket);
-            System.out.println("Enviando: " + cadena);
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                // Usar la cadena con la fecha/hora como contenido del paquete
+                cadena = obtenerHoraActualYFecha();
+                byte[] buf = cadena.getBytes();
+                DatagramPacket datagramPacket = new DatagramPacket(buf, buf.length, grupo, port);
+                socket.send(datagramPacket);
+                System.out.println("Enviando: " + cadena);
+
+
 
 
         }

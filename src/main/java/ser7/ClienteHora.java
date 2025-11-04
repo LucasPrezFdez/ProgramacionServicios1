@@ -26,6 +26,7 @@ public class ClienteHora {
 
             byte[] buf = new byte[1024];
             DatagramPacket dp = new DatagramPacket(buf, buf.length);
+            socket.receive(dp);
             // Recibir el paquete desde el socket
             msg = new String(dp.getData(), 0, dp.getLength());
             System.out.println("recibido: " + msg);
@@ -34,6 +35,10 @@ public class ClienteHora {
             if (resp == 'n') {
                 corte = false;
             }
+            String orden = String.valueOf(resp);
+            byte[] buffer = orden.getBytes();
+            DatagramPacket datagramPacket = new DatagramPacket(buffer, buffer.length, grupo, port);
+            socket.send(datagramPacket);
         }
         System.out.println();
         socket.close();
