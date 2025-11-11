@@ -51,4 +51,6 @@ public class Cuakero implements Serializable {
         System.out.println("Edad: " + edad + " años");
         System.out.println("Color de plumas: " + colorPlumas);
     }
+
+
 }
