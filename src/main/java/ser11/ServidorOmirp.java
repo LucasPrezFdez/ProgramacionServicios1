@@ -1,7 +1,5 @@
 package ser11;
 
-import ser10.HiloServidor;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;

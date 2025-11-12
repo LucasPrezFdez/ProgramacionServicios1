@@ -22,15 +22,21 @@ public class HiloOmirp extends Thread {
     @Override
     public void run() {
         try {
-            String cadena = "";
+            String cadena;
             int num;
+            boolean sigue = true;
             // lee líneas hasta recibir null o la cadena de terminación "***"
-            while (!cadena.trim().equals("quit")) {
+            while (sigue) {
                 System.out.println("COMUNICO CON: " + socket.toString());
                 cadena = fentrada.readLine();
+
+                if (cadena.equals("quit"))
+                    sigue = false;
+                if (!parseCad(cadena))
+                    fsalida.println("Debes introducir un numero!!");
                 if (parseCad(cadena)) {
                     num = Integer.parseInt(cadena);
-                    if (esOmirp(num)){
+                    if (esOmirp(num)) {
                         fsalida.println("Si es primo");
                     } else {
                         fsalida.println("No es primo");
